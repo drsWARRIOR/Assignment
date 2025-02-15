@@ -63,6 +63,7 @@ Building Instructions
 **Step 1**
 
 - Clone the repository using the command below
+  
  `git clone https://github.com/drsWARRIOR/Assignment.git`
 
  > **Note:** The project is created in Unity 6 (6000.0.028f1), ensure to use this version or above
