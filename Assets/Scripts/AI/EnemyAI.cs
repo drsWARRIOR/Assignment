@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,9 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour,AI
 {
     private Player player;
-    private Vector2 enemyPositionInGrid;
+
+    [HideInInspector]
+    public Vector2 enemyPositionInGrid;
 
     [SerializeField]
     private Grid grid;
@@ -125,7 +128,11 @@ public class EnemyAI : MonoBehaviour,AI
 
             if (path != null && path.Count > 0)
             {
-                StartCoroutine(Move(idle_x, idle_y, path));
+                // ensures that enemy starts moving when certain distance is there between enemy and player
+                if (Vector3.Distance(player.transform.position, transform.position) > Cell.cellSize * 2)
+                {
+                    StartCoroutine(Move(idle_x, idle_y, path));
+                }
             }
         }
     }
@@ -150,8 +157,10 @@ public class EnemyAI : MonoBehaviour,AI
         Cell dest_Cell = grid.GetSpecificCell(index_x, index_y, grid.gridCells);
 
         if (dest_Cell == null || dest_Cell.isBlocked)
+        {
             yield break;
-        
+        }
+
         //converts to world coordinates
         Vector3 targetPos = new Vector3(dest_Cell.transform.position.x, grid.groundOffset + (Cell.cellSize / 2), dest_Cell.transform.position.z);
 

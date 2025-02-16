@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 //Handles logic related to player
@@ -30,6 +31,10 @@ public class Player : MonoBehaviour
         //check if player is moving
         if (!isMoving)
         {
+            if (grid.selected_cell_x == (int)playerPositionInGrid.x && grid.selected_cell_y == (int)playerPositionInGrid.y)
+            {
+                return; // Player is already at the selected cell
+            }
             //check if the selected cell is blocked
             if (grid.GetSpecificCell(grid.selected_cell_x, grid.selected_cell_y, grid.gridCells).isBlocked == true)
             {
@@ -82,10 +87,22 @@ public class Player : MonoBehaviour
         //Gets the path 
         List<Node> path = pathfinder.FindPath((int)playerPositionInGrid.x, (int)playerPositionInGrid.y, dest_x, dest_y, grid);
 
+        if (path == null || path.Count == 0) {
+            Debug.Log("Can't move as no valid path found");
+            isMoving = false;
+            yield break;
+        }
+
+        //For drawing the path for debugging purpose
+        /*
+        pathfinder.DrawPath(path, grid);
+        */
+
         // move along the path step by step
         for (int i = 0; i < path.Count; i++)
         {
             yield return StartCoroutine(MoveToPoint(path[i].x, path[i].y));
+            
         }
 
         isMoving = false;
@@ -99,6 +116,7 @@ public class Player : MonoBehaviour
         //check if destination cell is valid and accessible
         if (dest_Cell == null || dest_Cell.isBlocked)
         {
+            isMoving = false;
             yield break;
         }
 

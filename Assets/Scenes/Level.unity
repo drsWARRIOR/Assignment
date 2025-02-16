@@ -657,8 +657,8 @@ MonoBehaviour:
   gridCells: []
   gridSetup:
     table:
-    - rows: 00000100000000000000
-    - rows: 00000000000000000000
+    - rows: 00010100000000000000
+    - rows: 01010000000000000000
     - rows: 00010000000001010000
     - rows: 00000100010000000000
     - rows: 00000001000101010100
@@ -784,6 +784,10 @@ PrefabInstance:
       propertyPath: pathfinder
       value: 
       objectReference: {fileID: 2061017775}
+    - target: {fileID: 5694320296491972731, guid: 17fe0ad9b4344c14cb9bf0051eaa3cfc, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8451299750837600059, guid: 17fe0ad9b4344c14cb9bf0051eaa3cfc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -837,6 +841,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 948917412429337841, guid: 69cf2ef4a74e32b48909d12f31e36e5c, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2020210778452509097, guid: 69cf2ef4a74e32b48909d12f31e36e5c, type: 3}
       propertyPath: grid
       value: 

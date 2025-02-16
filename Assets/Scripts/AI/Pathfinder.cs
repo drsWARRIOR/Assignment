@@ -26,8 +26,8 @@ public class Pathfinder : MonoBehaviour
     {
         List<Node> adjacentNodes = new List<Node>();
 
-        //Directions for all possible 8 direction
-        int[,] dir = new int[,] { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 }, { -1, -1 }, { -1, 1 }, { 1, -1 }, { 1, 1 } };
+        //Directions for all possible 4 direction
+        int[,] dir = new int[,] { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
         for (int i = 0; i < dir.GetLength(0); i++)
         {
@@ -38,7 +38,7 @@ public class Pathfinder : MonoBehaviour
             if (x >= 0 && x < grid.width && y >= 0 && y < grid.height)
             {
                 //only adds if node is not blocked
-                if (!nodes[x, y].isBlocked)
+                if (!nodes[x, y].isBlocked && !grid.IsCellOccupied(x,y))
                 {
                     adjacentNodes.Add(nodes[x, y]);
                 }

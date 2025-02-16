@@ -59,6 +59,8 @@ public class Grid : MonoBehaviour
     [SerializeField]
     private Player player;
 
+    private EnemyAI enemy;
+
     private void Awake()
     {
         //Initialize grid dimension based on the setup
@@ -68,6 +70,8 @@ public class Grid : MonoBehaviour
         //store the last know grid to detect changes
         lastGridSetup = CopyGridSetup(gridSetup);
         obstacleManager.lastObstacleData = CopyGridSetup(obstacleManager.obstacleData);
+
+        enemy = GameObject.FindWithTag("Enemy").GetComponent<EnemyAI>();
 
         // Renders the grid and initialize path finding nodes
         DrawGrid();
@@ -259,5 +263,22 @@ public class Grid : MonoBehaviour
 
         Debug.Log($"{index_x},{index_y} cell not found");
         return null;
+    }
+
+    public bool IsCellOccupied(int index_x, int index_y)
+    {
+        Vector2 cellPos = new Vector2 (index_x, index_y);
+
+        if(player != null && player.playerPositionInGrid == cellPos)
+        {
+            return true;
+        }
+
+        if(enemy != null && enemy.enemyPositionInGrid == cellPos)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
